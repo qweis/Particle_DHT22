@@ -9,13 +9,13 @@ HttpClient http;
 #define VARIABLE_ID4 "ID"                                 //Variable ID(F) for Temperature outside DHT22
 #define VARIABLE_ID5 "ID"                                 //Variable ID (%) for Humidity outside DHT22
 
-#define TOKEN "Token"                   //Acess Token
+#define TOKEN "Token"                                     //Acess Token
 
-#define DHTPINinside 2                  // what digital pin DHT22 inside is connected to
-#define DHTPINoutside 3                 // what digital pin DHT22 outside is connected to
+#define DHTPINinside 2                                    // what digital pin DHT22 inside is connected to
+#define DHTPINoutside 3                                   // what digital pin DHT22 outside is connected to
 
-#define DHTinsideTYPE DHT22		          // DHT 22 
-#define DHToutsideTYPE DHT22	          // DHT 22 
+#define DHTinsideTYPE DHT22		                            // DHT 22 
+#define DHToutsideTYPE DHT22	                            // DHT 22 
 
 unsigned long lastTime = 0UL;
 float temp_in_kelvin=0, temp_in_fahrenheit=0;
@@ -28,7 +28,7 @@ DHT dhtoutside(DHTPINoutside, DHToutsideTYPE);
 http_header_t headers[] = {
       { "Content-Type", "application/json" },
       { "X-Auth-Token" , TOKEN },
-    { NULL, NULL }                              // NOTE: Always terminate headers will NULL
+    { NULL, NULL }                                        // NOTE: Always terminate headers will NULL
 };
 
 http_request_t request;
@@ -43,7 +43,7 @@ void setup() {
     dhtinside.begin();
     dhtoutside.begin();
     
-    RGB.control(true);              // Set Particle Core Status LED to low brightness
+    RGB.control(true);                                    // Set Particle Core Status LED to low brightness
     RGB.brightness(3);
     RGB.control(false);
 }
@@ -51,7 +51,7 @@ void setup() {
 void loop() {
     
     
-    unsigned long now = millis();                 //Every 5 min publish uptime
+    unsigned long now = millis();                         //Every 10 min publish uptime
     
     if (now-lastTime>300000UL) {
         lastTime = now;
