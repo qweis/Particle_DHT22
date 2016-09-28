@@ -32,8 +32,22 @@ http_header_t headers[] = {                             //https://github.com/nma
 http_request_t request;
 http_response_t response;
 
+double h;       // humidity
+double tc;      // temperature c
+double tf;      // temperature f
+
+
+int temperature = 0;
+char resultstr[64];
+
+
 
 void setup() {
+
+    Spark.variable("temperaturec", &tc, DOUBLE);
+    Spark.variable("temperaturef", &tf, DOUBLE);
+    Spark.variable("humidity", &h, DOUBLE);
+    Spark.variable("result", &resultstr, STRING);
     
     request.hostname = "things.ubidots.com";            //From Ubidots http://ubidots.com/docs/api/
     request.port = 80;
@@ -53,6 +67,13 @@ void loop() {                                           //Start the Loop to post
      
     if (now-lastTime>300000UL) {                        //Check if time has progressed for 5 min if so post Temperature to the Server
         lastTime = now;                                 //300000 milliseconds = 5 minutes, 600000 msec = 10 min
+
+        h = dhtoutside.getHumidity();
+        tc = dhtoutside.getTempCelcius();
+        tf = dhtoutside.getTempFarenheit();
+
+        sprintf(resultstr, "{\"tc\":%f,\"tf\":%f,\"h\":%f}", tc, tf, h);                    //Write sensor data to string
+
         
         float h_outside = dhtoutside.getHumidity();
         float t_outside = dhtoutside.getTempCelcius();
