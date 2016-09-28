@@ -1,7 +1,7 @@
 function collectData() {
   var  sheet = SpreadsheetApp.getActiveSheet();
 
-  var response = UrlFetchApp.fetch("https://api.spark.io/v1/devices/53ff71065075535158281687/result?access_token=49ec93d471e99cc2255af9947dac78e8af2276c4");
+  var response = UrlFetchApp.fetch("https://api.spark.io/v1/devices/YOUR DEVICE ID/result?access_token=YOUR ACCESS TOKEN");
 
   try {
     var response = JSON.parse(response.getContentText()); // parse the JSON the Particle API created
